@@ -24,11 +24,10 @@ def getPasswd(userPasswd):
     else:
         checkPasswd(userPasswd, [fLow, fUp, fDig, spec])
 
-
 def checkPasswd(passwd, flags):
     if len(passwd) < 8:
-        print('Your password is too short!\nUse complex passwords to protect your data!')
-        return getPasswd(input('Passwd: '))
+        print('The minimum password length is 8 characters or more! Try again')
+        return getPasswd(input('Password: '))
     else:
         if False in flags:
             # Message about lowercase characters
@@ -55,9 +54,16 @@ def checkPasswd(passwd, flags):
             else:
                 print('Special characters ❌')
             
-            print('\nThe password should protect your data, and not be an easy target for scammers! Try again')
-            return getPasswd(input('Passwd: '))
+            yesNo = input('\nThe password does not meet all security recommendations! Are you sure you want to set this password? (Y/N): ')
+            while yesNo != 'Y' and yesNo != 'N':
+                yesNo = input('Please answer (Y/N): ')
+            
+            if yesNo == 'Y':
+                print('\nWelcome to the system!')
+            else:
+                print('\nGood. Set a new password')
+                return getPasswd(input('Password: '))
         else:
             print('Lowercase characters ✅\nUppercase characters ✅\nNumeric characters ✅\nSpecial characters ✅\n\nWelcome to the system!')
 
-getPasswd(input('Passwd: '))
+getPasswd(input('Password: '))
